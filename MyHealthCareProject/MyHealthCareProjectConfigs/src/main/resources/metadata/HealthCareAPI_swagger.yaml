@@ -1,0 +1,56 @@
+openapi: 3.0.1
+info:
+  title: HealthCareAPI
+  description: API Definition of HealthCareAPI
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/healthcare
+paths:
+  /querydoctor/{category}:
+    get:
+      parameters:
+      - name: category
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /categories/{category}/reserve:
+    get:
+      parameters:
+      - name: category
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+    post:
+      parameters:
+      - name: category
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Sample Payload
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payload:
+                  type: object
+        required: false
+      responses:
+        default:
+          description: Default response
