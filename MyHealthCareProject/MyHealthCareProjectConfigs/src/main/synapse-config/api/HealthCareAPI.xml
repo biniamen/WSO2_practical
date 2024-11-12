@@ -26,6 +26,7 @@
                 <property name="LOG MESSAGE" value="&quot;LOG RESERVATION START&quot;"/>
             </log>
             <property description="SET HOSPITAL" expression="json-eval($.hospital)" name="Hospital" scope="default" type="STRING"/>
+            <datamapper config="gov:datamapper/RequestMapping.dmc" description="Data Formatter" inputSchema="gov:datamapper/RequestMapping_inputSchema.json" inputType="JSON" outputSchema="gov:datamapper/RequestMapping_outputSchema.json" outputType="JSON" xsltStyleSheet="gov:datamapper/RequestMapping_xsltStyleSheet.xml"/>
             <switch source="get-property('Hospital')">
                 <case regex="grand oak community hospital">
                     <log description="LOG MESSAGE" level="custom">
