@@ -25,43 +25,37 @@
             <log description="LOG MESSAGE" level="custom">
                 <property name="LOG MESSAGE" value="&quot;LOG RESERVATION START&quot;"/>
             </log>
-            <property description="SET HOSPITAL" expression="json-eval($.hospital)" name="hospitalProperty" scope="default" type="STRING"/>
-            <switch source="$ctx:hospitalProperty">
+            <property description="SET HOSPITAL" expression="json-eval($.hospital)" name="Hospital" scope="default" type="STRING"/>
+            <switch source="get-property('Hospital')">
                 <case regex="grand oak community hospital">
-                    <log description="HOSPITAL ROUTING SQ1" level="custom">
-                        <property expression="fn:concat('Routing to ', $func:setHospital)" name="LOG MESSAGE"/>
+                    <log description="LOG MESSAGE" level="custom">
+                        <property expression="fn:concat('Routing to ', get-property('Hospital'))" name="LOG MESSAGE"/>
                     </log>
-                    <send>
+                    <call>
                         <endpoint key="GrandOakEP"/>
-                    </send>
+                    </call>
                 </case>
                 <case regex="clemency medical center">
-                    <log description="HOSPITAL ROUTING SQ2" level="custom">
-                        <property expression="fn:concat('Routing to ', $func:setHospital)" name="LOG MESSAGE"/>
-                    </log>
-                    <send>
+                    <log description="LOG MESSAGE"/>
+                    <call>
                         <endpoint key="ClemencyEP"/>
-                    </send>
+                    </call>
                 </case>
                 <case regex="pine valley community hospital">
-                    <log description="HOSPITAL ROUTING SQ3" level="custom">
-                        <property expression="fn:concat('Routing to ', $func:setHospital)" name="LOG MESSAGE"/>
-                    </log>
-                    <send>
+                    <log description="LOG MESSAGE"/>
+                    <call>
                         <endpoint key="PineValleyEP"/>
-                    </send>
+                    </call>
                 </case>
                 <default>
-                    <log description="LOG DEFAULT" level="custom">
-                        <property expression="fn:concat('Invalid Hospital ', $ctx:hospitalProperty)" name="LOG MESSAGE"/>
+                    <log level="custom">
+                        <property expression="fn:concat('Invalid Hospital ', $ctx:Hospital)" name="LOG MESSAGE"/>
                     </log>
-                    <respond description="SEND OUT RESPONSE"/>
                 </default>
             </switch>
+            <respond description="SEND OUT RESPONSE"/>
         </inSequence>
-        <outSequence>
-            <send/>
-        </outSequence>
+        <outSequence/>
         <faultSequence/>
     </resource>
 </api>
